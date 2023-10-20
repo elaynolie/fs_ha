@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<include>
+    <context name="from_kamailio">
+        <extension name="unloop">
+            <condition field="$${unroll_loops}" expression="^true$" />
+            <condition field="${sip_looped_call}" expression="^true$">
+                <action application="deflect" data="${destination_number}" />
+            </condition>
+        </extension>
+
+        <extension name="for_incoming" continue="true">
+            <condition wday="2-6" hour="9-18">
+          <action application="set" data="open=true"/>
+            </condition>
+          </extension>
+
+
+
+
+    <extension name="in-kam">
+            <condition field="destination_number" expression="^435435$">
+                <action application="set" data="sip_h_X-Token=Incoming call"/>
+                <action application="set" data="call_timeout=10"/>
+                <action application="set" data="ringback=${ru-ring}"/>
+                <action application="bridge" data="user/79268530630@$${domain}"/>
+                <action application="answer"/>
+                <action application="sleep" data="1000"/> 
+                <action application="playback" data="/opt/notavailable.wav"/>
+		    <action application="hangup"/>
+             
+            </condition>
+        </extension>
+        <extension name="out-kam">
+		<!--condition field="destination_number" expression="^(7\d{10})$"/-->
+		<condition field="destination_number" expression="^(\+7|7|8)?(\d{10})$">
+                <action application="set" data="effective_caller_id_name=79268530630"/>
+                <action application="set" data="effective_caller_id_number=79268530630"/>
+                 <action application="set" data="ringback=${ru-ring}"/>
+                <action application="set" data="continue_on_fail=true"/>
+		<!--action application="bridge" data="sofia/gateway/kamailio/$1"/-->
+		<action application="bridge" data="sofia/gateway/${distributor(proxy)}/${destination_number}"/>
+                <action application="hangup"/>
+            <anti-action application="respond" data="404"/> 
+            <action application="hangup"/> 
+            </condition>
+        </extension>
+        <extension name="local">
+            <condition field="destination_number" expression="^\d{4}$">
+                <action application="answer" />
+                <action application="sleep" data="1000" />
+                <action application="bridge" data="user/${destination_number}@$${domain}" />
+                <action application="hangup" />
+            </condition>
+        </extension>
+
+        <extension name="blocked_emergency">
+        <condition field="destination_number" expression="$${emergency}">
+            <action application="log" data="DIALING Extension DialURI [${emergency}]"/>
+            <action application="set" data="continue_on_fail=true"/>
+        <action application="respond" data="404"/>
+        <action application="hangup"/>
+        </condition>
+    </extension>
+
+    <extension name="TEST-RULE" continue="true">
+        <condition wday="4" mweek="2" time-of-day="16:57-23:30" break="never">
+                <action application="set" data="status=closed" inline="true"/>
+        </condition>
+</extension>
+
+
+    </context>
+</include>

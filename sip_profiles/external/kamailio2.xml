@@ -1,0 +1,16 @@
+<include>
+    <gateway name="kamailio2">
+        <param name="username" value="31524613"/>
+        <param name="password" value="dzfgtwgb"/>
+        <param name="realm" value="sbc2.colynn.pro"/>
+        <param name="from-user" value="31524613"/>
+        <param name="from-domain" value="sbc2.colynn.pro"/>
+        <param name="proxy" value="sbc2.colynn.pro"/>
+        <param name="expire-seconds" value="60"/>
+        <param name="register" value="true"/>
+        <param name="register-transport" value="udp"/>
+        <param name="context" value="from_kamailio"/>
+        <param name "caller-id-in-from" value="true"/>
+    </gateway>
+</include>
+

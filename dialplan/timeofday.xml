@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<include>
+    <context name="time_of_day">
+            <extension name="Time of day, day of week setup" continue="true">
+            <condition wday="2-6" hour="8-16" break="never">
+            <action application="set" data="office_status=open"inline="true"/>
+            <anti-action application="set" data="office_status=closed" inline="true"/>
+            </condition>
+            <condition hour="0-11" break="never">
+            <action application="set" data="day_part=morning" inline="true"/>
+            </condition>
+
+
+
+                    <condition hour="12-17" break="never">
+                    <action application="set" data="day_part=afternoon" inline="true"/>
+                        </condition>
+                        <condition hour="18-23" break="never">
+                        <action application="set" data="day_part=evening" inline="true"/>
+                    </condition>
+                    </extension>
+
+
+
+
+
+                    <extension name="tod route, 5001_X">
+                    <condition field="destination_number" expression="^(5001)$">
+                    <action application="execute_extension" data="5001_${office_status}"/>
+                </condition>
+            </extension>
+                <extension name="office is open">
+                <condition field="destination_number" expression="^(5001_open)$">
+                <action application="answer"/>
+                <action application="sleep" data="1000"/>
+                <action application="playback" data="ivr/ivr-good_${day_part}.wav"/>
+                <action application="sleep" data="500"/>
+    
+                </condition>
+            </extension>
+             
+                <extension name="office is closed">
+                 <condition field="destination_number" expression="^(5001_closed)$">
+                <action application="answer"/>
+                <action application="sleep" data="1000"/>
+                <action application="playback" data="ivr/ivr-good_${day_part}.wav"/>
+                <action application="sleep" data="500"/>    
+                </condition>
+                </extension>
+    </context>
+</include>

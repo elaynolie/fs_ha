@@ -1,0 +1,18 @@
+<include>
+    <gateway name="kamailio">
+        <param name="username" value="435435"/>
+        <param name="password" value="opZ4vyABJI2H"/>
+        <param name="realm" value="92.63.104.145"/>
+        <param name="from-user" value="435435"/>
+        <param name="from-domain" value="92.63.104.145"/>
+        <param name="proxy" value="92.63.104.145"/>
+        <param name="expire-seconds" value="60"/>
+        <param name="register" value="true"/>
+        <param name="register-transport" value="udp"/>
+        <param name="context" value="from_kamailio"/>
+        <param name "extension-in-contact" value="true"/>
+        <param name "caller-id-in-from" value="true"/>
+        
+    </gateway>
+</include>
+
