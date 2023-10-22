@@ -9,7 +9,7 @@
 
     <list name="proxy">
       <node name="kamailio" weight="5"/>
-      <node name="kamailio2" weight="5"/>
+      <node name="kamailio" weight="5"/>
     </list> 
   </lists>
 </configuration>

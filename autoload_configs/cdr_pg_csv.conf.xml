@@ -1,6 +1,6 @@
 <configuration name="cdr_pg_csv.conf" description="CDR PG CSV Format">
-  <settings>
-    <param name="db-info" value="host=127.0.0.1 dbname=freeswitch connect_timeout=10"/>
+	<settings>
+    <param name="db-info" value="host=127.0.0.1 dbname=freeswitch user=freeswitch password=freeswitch connect_timeout=10"/>
     <param name="db-table" value="cdr"/>
     <!-- Log a-leg (a), b-leg (b) or both (ab) -->
     <param name="legs" value="a"/>

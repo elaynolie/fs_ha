@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <include>
-    <context name="from_kamailio">
+    <context name="rebrain">
         <extension name="unloop">
             <condition field="$${unroll_loops}" expression="^true$" />
             <condition field="${sip_looped_call}" expression="^true$">
@@ -22,16 +22,15 @@
             </condition>
         </extension>
         <extension name="out-kam">
-		<!--condition field="destination_number" expression="^(7\d{10})$"/-->
-		<condition field="destination_number" expression="^(\+7|7|8)?(\d{10})$">
+		<condition field="destination_number" expression="^(7800\d{7})$">
+		<!--condition field="destination_number" expression="^(\+7|7|8)?(\d{10})$"/-->
                 <action application="set" data="effective_caller_id_name=79268530630"/>
                 <action application="set" data="effective_caller_id_number=79268530630"/>
                  <action application="set" data="ringback=${ru-ring}"/>
                 <action application="set" data="continue_on_fail=true"/>
-		<!--action application="bridge" data="sofia/gateway/kamailio/$1"/-->
+		<action application="bridge" data="sofia/gateway/kamailio/$1"/>
 		<action application="record_session" data="$${recordings_dir}/${strftime(%Y-%m-%d-%H-%M-%S)}_${destination_number}_${caller_id_number}.wav"/>
-		<!--action application="limit" data="hash fraud_protection call_per_day_intl 10/86400 !NORMAL_TEMPORARY_FAILURE"/-->
-		<action application="bridge" data="sofia/gateway/${distributor(proxy)}/${destination_number}"/>
+		<!--action application="bridge" data="sofia/gateway/${distributor(proxy)}/${destination_number}"/-->
                 <action application="hangup"/>
             <anti-action application="respond" data="404"/> 
             <action application="hangup"/> 

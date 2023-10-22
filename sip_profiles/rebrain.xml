@@ -1,4 +1,4 @@
-<profile name="rebrain">
+<profile name="pbx2.elaynolie.ru">
   <aliases>
     <!--
         <alias name="default"/>
@@ -18,7 +18,7 @@
 
   <settings>
 
-    <param name="track-calls" value="true"/>
+    <param name="track-calls" value="false"/>
     <!-- inject delay between dtmf digits on send to help some slow interpreters (also per channel with rtp_digit_delay var -->
     <!-- <param name="rtp-digit-delay" value="40"/>-->
 
@@ -35,14 +35,11 @@
     <!--<param name="media-option" value="bypass-media-after-att-xfer"/>-->
 
     <!-- Can be set to "_undef_" to remove the User-Agent header -->
-    <!-- <param name="user-agent-string" value="FreeSWITCH Rocks!"/> -->
-
+    <param name="user-agent-string" value="RebrainPBX"/>
     <param name="debug" value="0"/>
-    <!-- If you want FreeSWITCH to shutdown if this profile fails to load, uncomment the next line. -->
-    <!-- <param name="shutdown-on-fail" value="true"/> -->
-    <param name="sip-trace" value="no"/>
+    <param name="shutdown-on-fail" value="false"/>
+    <param name="sip-trace" value="yes"/>
     <param name="sip-capture" value="no"/>
-
     <!-- Use presence_map.conf.xml to convert extension regex to presence protos for routing -->
     <!-- <param name="presence-proto-lookup" value="true"/> -->
 
@@ -50,36 +47,19 @@
     <!-- Don't be picky about negotiated DTMF just always offer 2833 and accept both 2833 and INFO -->
     <!--<param name="liberal-dtmf" value="true"/>-->
 
+    <param name="sip-port" value="5070"/>
+    <param name="dialplan" value="XML"/>
+    <param name="context" value="rebrain"/>
 
-    <!--
-        Sometimes, in extremely rare edge cases, the Sofia SIP stack may stop
-        responding. These options allow you to enable and control a watchdog
-        on the Sofia SIP stack so that if it stops responding for the
-        specified number of milliseconds, it will cause FreeSWITCH to crash
-        immediately. This is useful if you run in an HA environment and
-        need to ensure automated recovery from such a condition. Note that if
-        your server is idle a lot, the watchdog may fire due to not receiving
-        any SIP messages. Thus, if you expect your system to be idle, you
-        should leave the watchdog disabled. It can be toggled on and off
-        through the FreeSWITCH CLI either on an individual profile basis or
-        globally for all profiles. So, if you run in an HA environment with a
-        master and slave, you should use the CLI to make sure the watchdog is
-        only enabled on the master.
-        If such crash occurs, FreeSWITCH will dump core if allowed. The
-        stacktrace will include function watchdog_triggered_abort().
-    -->
     <param name="watchdog-enabled" value="no"/>
     <param name="watchdog-step-timeout" value="30000"/>
     <param name="watchdog-event-timeout" value="30000"/>
-
     <param name="log-auth-failures" value="false"/>
     <param name="forward-unsolicited-mwi-notify" value="false"/>
 
-    <param name="context" value="rebrain"/>
     <param name="rfc2833-pt" value="101"/>
     <!-- port to bind to for sip traffic -->
-    <param name="sip-port" value="5070"/>
-    <param name="dialplan" value="XML"/>
+
     <param name="dtmf-duration" value="2000"/>
     <param name="inbound-codec-prefs" value="$${global_codec_prefs}"/>
     <param name="outbound-codec-prefs" value="$${global_codec_prefs}"/>
@@ -116,11 +96,8 @@
     -->
     <!--<param name="enable-timer" value="false"/>-->
     <!--<param name="minimum-session-expires" value="120"/>-->
-    <param name="apply-inbound-acl" value="domains"/>
-    <!--
-        This defines your local network, by default we detect your local network
-        and create this localnet.auto ACL for this.
-    -->
+    <!--param name="apply-inbound-acl" value="domains"/-->
+    <param name="apply-inbound-acl" value="localnet.auto"/>
     <param name="local-network-acl" value="localnet.auto"/>
     <!--<param name="apply-register-acl" value="domains"/>-->
     <!--<param name="dtmf-type" value="info"/>-->
@@ -142,9 +119,6 @@
 
     <!-- neither one -->
     <!--<param name="caller-id-type" value="none"/>-->
-
-
-
     <param name="record-path" value="$${recordings_dir}"/>
     <param name="record-template" value="${caller_id_number}.${target_domain}.${strftime(%Y-%m-%d-%H-%M-%S)}.wav"/>
     <!--enable to use presence -->
@@ -158,7 +132,6 @@
     <param name="presence-hosts" value="$${domain},$${local_ip_v4}"/>
     <param name="presence-privacy" value="$${presence_privacy}"/>
     <!-- ************************************************* -->
-
     <!-- This setting is for AAL2 bitpacking on G726 -->
     <!-- <param name="bitpacking" value="aal2"/> -->
     <!--max number of open dialogs in proceeding -->
@@ -228,20 +201,15 @@
     <!--<param name="odbc-dsn" value="dsn:user:pass"/>-->
 
     <!-- Or, if you have PGSQL support, you can use that -->
-    <!--<param name="odbc-dsn" value="pgsql://hostaddr=127.0.0.1 dbname=freeswitch user=freeswitch password='' options='-c client_min_messages=NOTICE' application_name='freeswitch'" />-->
-
+    <param name="odbc-dsn" value="pgsql://hostaddr=127.0.0.1 dbname=freeswitch user=freeswitch password=freeswitch"/>
     <!-- By default each profile will give the database 1000 ms to spin-up on load -->
     <!--<param name="db-spin-up-wait-ms" value="1000" />-->
-
     <!--Uncomment to set all inbound calls to no media mode-->
     <!--<param name="inbound-bypass-media" value="true"/>-->
-
     <!--Uncomment to set all inbound calls to proxy media mode-->
     <!--<param name="inbound-proxy-media" value="true"/>-->
-
     <!-- Let calls hit the dialplan before selecting codec for the a-leg -->
     <param name="inbound-late-negotiation" value="true"/>
-
     <!-- this lets anything register -->
     <!--  comment the next line and uncomment one or both of the other 2 lines for call authentication -->
     <!-- <param name="accept-blind-reg" value="true"/> -->
@@ -301,11 +269,11 @@
 
     -->
     <!--all inbound reg will look in this domain for the users -->
-    <param name="force-register-domain" value="$${domain}"/>
+    <!--param name="force-register-domain" value="$${domain}"/-->
     <!--force the domain in subscriptions to this value -->
-    <param name="force-subscription-domain" value="$${domain}"/>
+    <!--param name="force-subscription-domain" value="$${domain}"/!-->
     <!--all inbound reg will stored in the db using this domain -->
-    <param name="force-register-db-domain" value="$${domain}"/>
+    <!--param name="force-register-db-domain" value="$${domain}"/!-->
 
 
     <!-- for sip over websocket support -->

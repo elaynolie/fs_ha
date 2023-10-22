@@ -2,10 +2,10 @@
     <gateway name="kamailio">
         <param name="username" value="435435"/>
         <param name="password" value="opZ4vyABJI2H"/>
-        <param name="realm" value="92.63.104.145"/>
+        <param name="realm" value="sbc.elaynolie.ru"/>
         <param name="from-user" value="435435"/>
-        <param name="from-domain" value="92.63.104.145"/>
-        <param name="proxy" value="92.63.104.145"/>
+        <param name="from-domain" value="sbc.elaynolie.ru"/>
+	<param name="proxy" value="sbc.elaynolie.ru"/>
         <param name="expire-seconds" value="60"/>
         <param name="register" value="true"/>
         <param name="register-transport" value="udp"/>

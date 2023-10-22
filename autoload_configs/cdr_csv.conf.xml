@@ -3,7 +3,7 @@
     <!-- 'cdr-csv' will always be appended to log-base -->
     <!--<param name="log-base" value="/var/log"/>-->
   
-    <param name="db-info" value="host=127.0.0.1 dbname=fscdr user=freeswitch password='' connect_timeout=10" /> 
+    <param name="db-info" value="host=127.0.0.1 dbname=fscdr user=freeswitch password='freeswitch' connect_timeout=10" /> 
     <param name="db-table" value="cdr"/>
     <param name="default-template" value="example"/>
     <!-- This is like the info app but after the call is hung up -->
