@@ -37,7 +37,7 @@
     <groups>
       <group name="default">
 	<users>
-	  <X-PRE-PROCESS cmd="include" data="default/*.xml"/>
+	  <X-PRE-PROCESS cmd="include" data="pbx.elaynolie.ru/*.xml"/>
 	</users>
       </group>
 
@@ -48,7 +48,7 @@
 	      same user in multiple groups.  It basically means
 	      to keep searching for the user in the directory.
 	  -->
-	  <user id="1000" type="pointer"/>
+	  <user id="79268530630" type="pointer"/>
 	  <user id="1001" type="pointer"/>
 	  <user id="1002" type="pointer"/>
 	  <user id="1003" type="pointer"/>

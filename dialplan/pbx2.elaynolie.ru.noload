@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    NOTICE:
-
-    This context is usually accessed via authenticated callers on the sip profile on port 5060
-    or transfered callers from the public context which arrived via the sip profile on port 5080.
-
-    Authenticated users will use the user_context variable on the user to determine what context
-    they can access.  You can also add a user in the directory with the cidr= attribute acl.conf.xml
-    will build the domains ACL using this value.
--->
-<!-- http://wiki.freeswitch.org/wiki/Dialplan_XML -->
 <include>
-  <context name="default">
+  <context name="pbx2.elaynolie.ru">
 
     <extension name="unloop">
       <condition field="${unroll_loops}" expression="^true$"/>
@@ -20,39 +9,11 @@
       </condition>
     </extension>
 
-
-
-
-
-
-    <!-- Example of doing things based on time of day.
-
-	 year = 4 digit year. Example year="2009"
-	 yday = 1-365
-	 mon = 1-12
-	 mday = 1-31
-	 week = 1-52
-	 mweek= 1-6
-	 wday = 1-7
-	 hour = 0-23
-	 minute = 0-59
-	 minute-of-day = 1-1440
-
-	 Example:
-	 <condition minute-of-day="540-1080"> (9am to 6pm EVERY day)
-	 do something ...
-	 </condition>
-    -->
     <extension name="tod_example" continue="true">
       <condition wday="2-6" hour="9-18">
 	<action application="set" data="open=true"/>
       </condition>
     </extension>
-
-    <!-- Example of routing based on holidays
-
-	This example covers all US Federal holidays except for inauguration day.
-    -->
 
     <extension name="holiday_example" continue="true">
       <condition mday="1" mon="1">
@@ -798,8 +759,8 @@
     <!--
 	You can place files in the default directory to get included.
     -->
-    <X-PRE-PROCESS cmd="include" data="default/*.xml"/>
-
+    <!--X-PRE-PROCESS cmd="include" data="default/*.xml"/-->
+    <X-PRE-PROCESS cmd="include" data="from_kamailio.xml"/>
     <!--
     <extension name="refer">
       <condition field="${sip_refer_to}">

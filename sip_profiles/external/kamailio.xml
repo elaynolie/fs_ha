@@ -5,14 +5,19 @@
         <param name="realm" value="sbc.elaynolie.ru"/>
         <param name="from-user" value="435435"/>
         <param name="from-domain" value="sbc.elaynolie.ru"/>
-	<param name="proxy" value="sbc.elaynolie.ru"/>
+	    <param name="proxy" value="sbc.elaynolie.ru"/>
         <param name="expire-seconds" value="60"/>
         <param name="register" value="true"/>
         <param name="register-transport" value="udp"/>
         <param name="context" value="from_kamailio"/>
         <param name "extension-in-contact" value="true"/>
         <param name "caller-id-in-from" value="true"/>
-        
+        <variables>      
+        <variable name="verbose_sdp" value="true"/>
+        <variable name="domain"
+                value="pbx.elaynolie.ru" direction="inbound"/>
+      <variable name="target_context"
+                value="from_kamailio" direction="inbound"/>
+    </variables>    
     </gateway>
 </include>
-

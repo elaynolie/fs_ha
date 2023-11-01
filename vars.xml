@@ -1,22 +1,12 @@
 <include>
-  <!-- Preprocessor Variables
-       These are introduced when configuration strings must be consistent across modules.
-       NOTICE: YOU CAN NOT COMMENT OUT AN X-PRE-PROCESS line, Remove the line instead.
-
-       WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
-
-       YOU SHOULD CHANGE THIS default_password value if you don't want to be subject to any
-       toll fraud in the future.  It's your responsibility to secure your own system.
-
-       This default config is used to demonstrate the feature set of FreeSWITCH.
-
-       WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
-  -->
   <X-PRE-PROCESS cmd="set" data="default_password=Two3zBMXmDpc"/>
   <X-PRE-PROCESS cmd="set" data="emergency=^911|112|101|102|103"/>
   <X-PRE-PROCESS cmd="set" data="api_on_startup=fsctl recover"/>
   <X-PRE-PROCESS cmd="set" data="timezone=Europe/Moscow"/>
-
+  <X-PRE-PROCESS cmd="set" data="default_password2=fsrgawrtw455525y1r1"/>
+  <X-PRE-PROCESS cmd="set" data="internal_ssl_enable=true"/>
+  <X-PRE-PROCESS cmd="set" data="external_ssl_enable=true"/>
+  <X-PRE-PROCESS cmd="set" data="russian_prefix=(\+7|7|8)?(\d{10})"/>
   <!-- Did you change it yet? -->
   <!--
       The following variables are set dynamically - calculated if possible by freeswitch - and
@@ -255,6 +245,9 @@
   -->
   <X-PRE-PROCESS cmd="set" data="global_codec_prefs=OPUS,G722,PCMU,PCMA,H264,VP8"/>
   <X-PRE-PROCESS cmd="set" data="outbound_codec_prefs=OPUS,G722,PCMU,PCMA,H264,VP8"/>
+ 
+
+
 
   <!--
       xmpp_client_profile and xmpp_server_profile
@@ -277,7 +270,7 @@
        use different addresses where this variable appears.
        Used by: dingaling.conf.xml
   -->
-  <X-PRE-PROCESS cmd="set" data="bind_server_ip=auto"/>
+  <X-PRE-PROCESS cmd="set" data="bind_server_ip=pbx.elaynolie.ru"/>
 
   <!-- NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE
 
@@ -295,8 +288,11 @@
        If unspecified, the bind_server_ip value is used.
        Used by: sofia.conf.xml dingaling.conf.xml
   -->
-  <X-PRE-PROCESS cmd="stun-set" data="external_rtp_ip=stun:stun.freeswitch.org"/>
-
+  <!--X-PRE-PROCESS cmd="stun-set" data="external_rtp_ip=stun:stun.freeswitch.org"/-->
+  <!--X-PRE-PROCESS cmd="stun-set" data="external_sip_ip=stun:stun.freeswitch.org"/-->
+  <X-PRE-PROCESS cmd="stun-set" data="external_rtp_ip=149.154.69.216"/>
+  <X-PRE-PROCESS cmd="stun-set" data="external_sip_ip=149.154.69.216"/>
+  <!--X-PRE-PROCESS cmd="set" data="add_ice_candidates=true"/-->
   <!-- external_sip_ip
       Used as the public IP address for SDP.
        Can be an one of:
@@ -308,7 +304,7 @@
        If unspecified, the bind_server_ip value is used.
        Used by: sofia.conf.xml dingaling.conf.xml
   -->
-  <X-PRE-PROCESS cmd="stun-set" data="external_sip_ip=stun:stun.freeswitch.org"/>
+  
 
   <!-- unroll-loops
        Used to turn on sip loopback unrolling.
@@ -326,8 +322,8 @@
   <!-- various debug and defaults -->
   <X-PRE-PROCESS cmd="set" data="call_debug=false"/>
   <X-PRE-PROCESS cmd="set" data="console_loglevel=info"/>
-  <X-PRE-PROCESS cmd="set" data="default_areacode=918"/>
-  <X-PRE-PROCESS cmd="set" data="default_country=US"/>
+  <X-PRE-PROCESS cmd="set" data="default_areacode=495"/>
+  <X-PRE-PROCESS cmd="set" data="default_country=RU"/>
 
   <!-- if false or undefined, the destination number is included in presence NOTIFY dm:note.
        if true, the destination number is not included -->
@@ -410,13 +406,13 @@
   <X-PRE-PROCESS cmd="set" data="internal_auth_calls=true"/>
   <X-PRE-PROCESS cmd="set" data="internal_sip_port=5060"/>
   <X-PRE-PROCESS cmd="set" data="internal_tls_port=5061"/>
-  <X-PRE-PROCESS cmd="set" data="internal_ssl_enable=false"/>
+  <!--X-PRE-PROCESS cmd="set" data="internal_ssl_enable=false"/-->
 
   <!-- External SIP Profile -->
   <X-PRE-PROCESS cmd="set" data="external_auth_calls=false"/>
   <X-PRE-PROCESS cmd="set" data="external_sip_port=5080"/>
   <X-PRE-PROCESS cmd="set" data="external_tls_port=5081"/>
-  <X-PRE-PROCESS cmd="set" data="external_ssl_enable=false"/>
+  <!--X-PRE-PROCESS cmd="set" data="external_ssl_enable=false"/-->
 
   <!-- Video Settings -->
   <!-- Setting the max bandwdith -->
@@ -428,6 +424,7 @@
   <X-PRE-PROCESS cmd="set" data="suppress_cng=true"/>
   <!-- Enable liberal DTMF for those that can't get it right -->
   <X-PRE-PROCESS cmd="set" data="rtp_liberal_dtmf=true"/>
+  <X-PRE-PROCESS cmd="set" data="add_ice_candidates=true"/>
   <!-- Helps with WebRTC Audio -->
 
   <!-- Stock Video Avatars -->

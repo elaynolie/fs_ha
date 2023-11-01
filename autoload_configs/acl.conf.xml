@@ -12,6 +12,8 @@
     <list name="lan" default="allow">
       <node type="deny" cidr="192.168.42.0/24"/>
       <node type="allow" cidr="192.168.42.42/32"/>
+      <node type="allow" cidr="10.75.0.0/24"/>
+      <node type="allow" cidr="192.168.194.0/24"/>
     </list>
 
     <!--
@@ -22,11 +24,15 @@
     -->
     <list name="domains" default="deny">
       <!-- domain= is special it scans the domain from the directory to build the ACL -->
-      <node type="allow" domain="$${domain}"/>
+	    <!--node type="allow" domain="$${domain}"/-->
+	    <node type="allow" domain="pbx.elaynolie.ru"/>
+	    <node type "allow" domain="pbx2.elaynolie.ru"/>
       <!-- use cidr= if you wish to allow ip ranges to this domains acl. -->
-      <!-- <node type="allow" cidr="192.168.0.0/24"/> -->
+	    <!-- <node type="allow" cidr="192.168.0.0/24"/> -->
+      <node type="allow" cidr="185.68.22.217/32"/>
+      <node type="allow" cidr="92.63.104.145/32"/>
+      <node type="allow" cidr="10.75.0.23/32/32"/>
     </list>
 
   </network-lists>
 </configuration>
-

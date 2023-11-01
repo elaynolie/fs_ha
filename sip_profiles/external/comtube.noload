@@ -1,0 +1,16 @@
+<include>
+    <gateway name="comtube">
+        <param name="username" value="869737"/>
+        <param name="password" value="Killreal01"/>
+        <param name="realm" value="sip.comtube.com"/>
+        <param name="from-user" value="869737"/>
+        <param name="from-domain" value="sip.comtube.com"/>
+	    <param name="proxy" value="sip.comtube.com"/>
+        <param name="expire-seconds" value="300"/>
+        <param name="register" value="true"/>
+        <param name="register-transport" value="udp"/>
+        <param name="context" value="from_kamailio"/>
+        <param name "caller-id-in-from" value="false"/>
+        
+    </gateway>
+</include>

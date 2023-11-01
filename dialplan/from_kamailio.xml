@@ -10,33 +10,32 @@
 
     <extension name="in-kam">
             <condition field="destination_number" expression="^435435$">
-                <action application="set" data="sip_h_X-Token=Incoming call"/>
-                <action application="set" data="call_timeout=10"/>
-                <action application="set" data="ringback=${ru-ring}"/>
-                <action application="bridge" data="user/79268530630@$${domain}"/>
+		        <action application="set" data="call_timeout=30"/>
+                <!--action application="park"/-->
+                <action application="bridge" data="user/79268530630@pbx.elaynolie.ru"/>
                 <action application="answer"/>
                 <action application="sleep" data="1000"/> 
-                <action application="playback" data="/opt/notavailable.wav"/>
 		    <action application="hangup"/>
-             
-            </condition>
-        </extension>
+        </condition>
+    </extension>
+
         <extension name="out-kam">
-		<!--condition field="destination_number" expression="^(7\d{10})$"/-->
-		<condition field="destination_number" expression="^(\+7|7|8)?(\d{10})$">
+		<!--condition field="destination_number" expression="^(7\d{10})$"-->
+            		<condition field="destination_number" expression="^(\+7|7|8)?(\d{10})$">
                 <action application="set" data="effective_caller_id_name=79268530630"/>
                 <action application="set" data="effective_caller_id_number=79268530630"/>
+                <!--action application="hiredis_raw" data="default LPUSH Callers ${effective_caller_id_number}" /-->
                  <action application="set" data="ringback=${ru-ring}"/>
                 <action application="set" data="continue_on_fail=true"/>
 		<!--action application="bridge" data="sofia/gateway/kamailio/$1"/-->
 		<action application="record_session" data="$${recordings_dir}/${strftime(%Y-%m-%d-%H-%M-%S)}_${destination_number}_${caller_id_number}.wav"/>
-		<!--action application="limit" data="hash fraud_protection call_per_day_intl 10/86400 !NORMAL_TEMPORARY_FAILURE"/-->
 		<action application="bridge" data="sofia/gateway/${distributor(proxy)}/${destination_number}"/>
-                <action application="hangup"/>
+                <action application="hangup" data="NORMAL_CIRCUIT_CONGESTION"/>
             <anti-action application="respond" data="404"/> 
             <action application="hangup"/> 
             </condition>
         </extension>
+
         <extension name="local">
             <condition field="destination_number" expression="^\d{4}$">
                 <action application="answer" />
@@ -48,12 +47,11 @@
 
         <extension name="blocked_emergency">
         <condition field="destination_number" expression="$${emergency}">
-            <action application="log" data="DIALING Extension DialURI [${emergency}]"/>
+            <action application="log" data="WARNING call $${emergency}"/>
             <action application="set" data="continue_on_fail=true"/>
         <action application="respond" data="404"/>
         <action application="hangup"/>
         </condition>
     </extension>
-
     </context>
 </include>

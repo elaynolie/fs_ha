@@ -9,9 +9,6 @@
   <!-- http://wiki.freeswitch.org/wiki/Sofia_Configuration_Files -->
   <!--aliases are other names that will work as a valid profile name for this profile-->
   <aliases>
-    <!--
-        <alias name="default"/>
-    -->
   </aliases>
   <!-- Outbound Registrations -->
   <gateways>
@@ -26,8 +23,7 @@
   </domains>
 
   <settings>
-
-    <param name="track-calls" value="true"/>
+    <param name="track-calls" value="false"/>
     <!-- inject delay between dtmf digits on send to help some slow interpreters (also per channel with rtp_digit_delay var -->
     <!-- <param name="rtp-digit-delay" value="40"/>-->
 
@@ -54,36 +50,13 @@
 
     <!-- Use presence_map.conf.xml to convert extension regex to presence protos for routing -->
     <!-- <param name="presence-proto-lookup" value="true"/> -->
-
-
     <!-- Don't be picky about negotiated DTMF just always offer 2833 and accept both 2833 and INFO -->
     <!--<param name="liberal-dtmf" value="true"/>-->
-
-
-    <!--
-        Sometimes, in extremely rare edge cases, the Sofia SIP stack may stop
-        responding. These options allow you to enable and control a watchdog
-        on the Sofia SIP stack so that if it stops responding for the
-        specified number of milliseconds, it will cause FreeSWITCH to crash
-        immediately. This is useful if you run in an HA environment and
-        need to ensure automated recovery from such a condition. Note that if
-        your server is idle a lot, the watchdog may fire due to not receiving
-        any SIP messages. Thus, if you expect your system to be idle, you
-        should leave the watchdog disabled. It can be toggled on and off
-        through the FreeSWITCH CLI either on an individual profile basis or
-        globally for all profiles. So, if you run in an HA environment with a
-        master and slave, you should use the CLI to make sure the watchdog is
-        only enabled on the master.
-        If such crash occurs, FreeSWITCH will dump core if allowed. The
-        stacktrace will include function watchdog_triggered_abort().
-    -->
     <param name="watchdog-enabled" value="no"/>
     <param name="watchdog-step-timeout" value="30000"/>
     <param name="watchdog-event-timeout" value="30000"/>
-
-    <param name="log-auth-failures" value="false"/>
+    <param name="log-auth-failures" value="true"/>
     <param name="forward-unsolicited-mwi-notify" value="false"/>
-
     <param name="context" value="public"/>
     <param name="rfc2833-pt" value="101"/>
     <!-- port to bind to for sip traffic -->
@@ -99,8 +72,7 @@
     <param name="sip-ip" value="$${local_ip_v4}"/>
     <param name="hold-music" value="$${hold_music}"/>
     <param name="apply-nat-acl" value="nat.auto"/>
-
-
+    <param name="registration-thread-frequency" value="60"/>
     <!-- (default true) set to false if you do not wish to have called party info in 1XX responses -->
     <!-- <param name="cid-in-1xx" value="false"/> -->
 
@@ -161,7 +133,7 @@
     <!-- used to share presence info across sofia profiles -->
     <!-- Name of the db to use for this profile -->
     <!--<param name="dbname" value="share_presence"/>-->
-    <param name="presence-hosts" value="$${domain},$${local_ip_v4}"/>
+    <!--param name="presence-hosts" value="$${domain},$${local_ip_v4}"/-->
     <param name="presence-privacy" value="$${presence_privacy}"/>
     <!-- ************************************************* -->
 
@@ -183,7 +155,7 @@
     <!-- Send an OPTIONS packet to all registered endpoints -->
     <!--<param name="all-reg-options-ping" value="true"/>-->
     <!-- Send an OPTIONS packet to NATed registered endpoints. Can be 'true' or 'udp-only'. -->
-    <!--<param name="nat-options-ping" value="true"/>-->
+    <param name="nat-options-ping" value="false"/>
     <param name="sip-options-respond-503-on-busy" value="no"/>
     <!--<param name="sip-messages-respond-200-ok" value="true"/>-->
     <!--<param name="sip-subscribe-respond-200-ok" value="true"/>-->
@@ -233,9 +205,7 @@
     <!--If you have ODBC support and a working dsn you can use it instead of SQLite-->
     <!--<param name="odbc-dsn" value="dsn:user:pass"/>-->
 
-    <!-- Or, if you have PGSQL support, you can use that -->
-    <!--<param name="odbc-dsn" value="pgsql://hostaddr=127.0.0.1 dbname=freeswitch user=freeswitch password='' options='-c client_min_messages=NOTICE' application_name='freeswitch'" />-->
-
+    <param name="odbc-dsn" value="pgsql://hostaddr=127.0.0.1 dbname=freeswitch user=freeswitch password=freeswitch options='-c client_min_messages=NOTICE' application_name='freeswitch'"/>
     <!-- By default each profile will give the database 1000 ms to spin-up on load -->
     <!--<param name="db-spin-up-wait-ms" value="1000" />-->
 
@@ -300,23 +270,21 @@
     <!-- <param name="vad" value="in"/> -->
     <!-- <param name="vad" value="out"/> -->
     <!-- <param name="vad" value="both"/> -->
-    <!--<param name="alias" value="sip:10.0.1.251:5555"/>-->
+    <param name="alias" value="sip:149.154.69.216:5060"/>
     <!--
         These are enabled to make the default config work better out of the box.
         If you need more than ONE domain you'll need to not use these options.
 
     -->
-    <!--all inbound reg will look in this domain for the users -->
-    <param name="force-register-domain" value="$${domain}"/>
-    <!--force the domain in subscriptions to this value -->
-    <param name="force-subscription-domain" value="$${domain}"/>
-    <!--all inbound reg will stored in the db using this domain -->
-    <param name="force-register-db-domain" value="$${domain}"/>
+    <!--FOR Multi-Tenant -->
 
+    <!--param name="force-register-domain" value="$${domain}"/!-->
+    <!--param name="force-subscription-domain" value="$${domain}"/-->
+    <!--param name="force-register-db-domain" value="$${domain}"/-->
 
+    
     <!-- for sip over websocket support -->
     <param name="ws-binding"  value=":5066"/>
-
     <!-- for sip over secure websocket support -->
     <!-- You need wss.pem in $${certs_dir} for wss or one will be created for you -->
     <param name="wss-binding" value=":7443"/>
@@ -347,7 +315,7 @@
     <!--<param name="enable-3pcc" value="true"/>-->
 
     <!-- use at your own risk or if you know what this does.-->
-    <!--<param name="NDLB-force-rport" value="true"/>-->
+    <param name="NDLB-force-rport" value="true"/>
     <!--
         Choose the realm challenge key. Default is auto_to if not set.
 

@@ -1,3 +1,4 @@
+
 <include>
   <!--the domain or ip (the right hand side of the @ in the addr-->
   <domain name="pbx2.elaynolie.ru">
@@ -17,39 +18,27 @@
     </variables>
 
     <groups>
-      <group name="pbx2.elaynolie.ru">
-	<users>
-	  <X-PRE-PROCESS cmd="include" data="pbx2.elaynolie.ru/*.xml"/>
-	</users>
-      </group>
-
       <group name="rebrain">
 	<users>
-	  <user id="4000" type="pointer"/>
-	  <user id="4001" type="pointer"/>
-	  <user id="4002" type="pointer"/>
-	  <user id="4003" type="pointer"/>
-	  <user id="4004" type="pointer"/>
-    <user id="4005" type="pointer"/>
-	  <user id="4006" type="pointer"/>
-	  <user id="4007" type="pointer"/>
-	  <user id="4008" type="pointer"/>
-	  <user id="4009" type="pointer"/>
-	  <user id="4010" type="pointer"/>
-    <user id="4011" type="pointer"/>
-    <user id="4011" type="pointer"/>
-    <user id="4012" type="pointer"/>
-    <user id="4013" type="pointer"/>
-    <user id="4014" type="pointer"/>
-    <user id="4015" type="pointer"/>
-    <user id="4016" type="pointer"/>
-    <user id="4017" type="pointer"/>
-    <user id="4018" type="pointer"/>
-    <user id="4019" type="pointer"/>
-    <user id="4020" type="pointer"/>
-	</users>
+	  <X-PRE-PROCESS cmd="include" data="pbx2.elaynolie.ru/*.xml"/>
+	
+      <user id="4000" type="pointer"/>
+      <user id="4001" type="pointer"/>
+      <user id="4002" type="pointer"/>
+      <user id="4003" type="pointer"/>
+      <user id="4004" type="pointer"/>
+      <user id="4005" type="pointer"/>
+      <user id="4006" type="pointer"/>
+      <user id="4007" type="pointer"/>
+      <user id="4008" type="pointer"/>
+      <user id="4009" type="pointer"/>
+      <user id="4010" type="pointer"/>
+      <user id="4011" type="pointer"/>
+      <user id="4012" type="pointer"/>
+      <user id="4013" type="pointer"/>
+      <user id="4014" type="pointer"/>
+  </users>
       </group>
     </groups>
-
   </domain>
 </include>

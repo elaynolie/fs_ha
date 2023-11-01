@@ -19,6 +19,9 @@
 	<action application="deflect" data="${destination_number}"/>
       </condition>
     </extension>
+
+
+
     <!--
 	Tag anything pass thru here as an outside_call so you can make sure not
 	to create any routing loops based on the conditions that it came from 
@@ -55,6 +58,14 @@
       </condition>
     </extension>
 
+    <extension name="pbx.elaynolie.ru 1000">   
+      <condition field="destination_number" expression="435435"> 
+       <action application="set" data="domain_name=pbx.elaynolie.ru"/>
+       <action application="transfer" data="1000 XML default"/>
+      </condition>
+    </extension>
+
+  
     <condition wday="6" hour="8-12" break="on-true">    <!-- Пятница, 8.00 - 12.59 -->
       <action application="transfer" data="1105 XML default"/>
   </condition>
@@ -66,8 +77,6 @@
   <condition> <!-- это универсальный алгоритм, пересылающий вызов на голосовую почту в любое другое время. -->
       <action application="voicemail" data="default ${domain} 1105"/>
   </condition>
-
-
 
 
 

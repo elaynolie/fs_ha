@@ -20,10 +20,18 @@
       </condition>
     </extension>
 
-
-
-
-
+    <extension name="in-kam">
+      <condition field="destination_number" expression="^435435$">
+              <action application="set" data="call_timeout=30"/>
+          <action application="set" data="ringback=${ru-ring}"/>
+              <action application="bridge" data="user/79268530630@pbx.elaynolie.ru"/>
+              <!--action application="bridge" data="user/79268530630@pbx.elaynolie.ru"/-->
+          <action application="answer"/>
+          <action application="sleep" data="1000"/> 
+          <action application="playback" data="/opt/notavailable.wav"/>
+          <action application="hangup"/>
+      </condition>
+</extension>
 
     <!-- Example of doing things based on time of day.
 
